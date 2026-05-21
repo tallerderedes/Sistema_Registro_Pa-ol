@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{% if usuario %}Editar{% else %}Nuevo{% endif %} Usuario</h2>
+<div class="form-card">
+  <form method="POST">
+    <label>Nombre completo *</label>
+    <input name="nombre" required value="{{ usuario.nombre if usuario else '' }}">
+    <label>Tipo *</label>
+    <select name="tipo">
+      {% for t in ['Alumno','Docente'] %}
+      <option value="{{ t }}" {% if usuario and usuario.tipo==t %}selected{% endif %}>{{ t }}</option>
+      {% endfor %}
+    </select>
+    <label>Curso</label>
+    <input name="curso" value="{{ usuario.curso if usuario else '' }}" placeholder="ej: 3">
+    <label>Division</label>
+    <input name="division" value="{{ usuario.division if usuario else '' }}" placeholder="ej: A">
+    <label>Turno *</label>
+    <select name="turno">
+      {% for t in ['Manana','Tarde'] %}
+      <option value="{{ t }}" {% if usuario and usuario.turno==t %}selected{% endif %}>{{ t }}</option>
+      {% endfor %}
+    </select>
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit">Guardar</button>
+      <a href="/usuarios" class="btn btn-secondary">Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

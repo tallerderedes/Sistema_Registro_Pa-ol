@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{% if herramienta %}Editar{% else %}Nueva{% endif %} Herramienta</h2>
+<div class="form-card">
+  <form method="POST">
+    <label>Nombre *</label>
+    <input name="nombre" required value="{{ herramienta.nombre if herramienta else '' }}">
+    <label>Descripcion</label>
+    <input name="descripcion" value="{{ herramienta.descripcion if herramienta else '' }}">
+    <label>Cantidad *</label>
+    <input name="cantidad" type="number" min="0" required value="{{ herramienta.cantidad if herramienta else 1 }}">
+    <label>Estado *</label>
+    <select name="estado">
+      {% for e in ['Bueno','Regular','Danado'] %}
+      <option value="{{ e }}" {% if herramienta and herramienta.estado==e %}selected{% endif %}>{{ e }}</option>
+      {% endfor %}
+    </select>
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit">Guardar</button>
+      <a href="/herramientas" class="btn btn-secondary">Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

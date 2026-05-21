@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Generar Informe</h2>
+<div class="form-card" style="max-width:420px">
+  <form action="/informes/generar" method="GET">
+    <label>Periodo</label>
+    <select name="tipo">
+      <option value="turno">Por turno (hoy)</option>
+      <option value="semanal">Semanal</option>
+      <option value="mensual">Mensual</option>
+      <option value="cuatrimestral">Cuatrimestral</option>
+      <option value="anual">Anual</option>
+    </select>
+    <label>Turno</label>
+    <select name="turno">
+      <option value="todos">Ambos turnos</option>
+      <option value="Manana">Manana</option>
+      <option value="Tarde">Tarde</option>
+    </select>
+    <div class="form-actions">
+      <button class="btn btn-primary" type="submit">Ver Informe</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Prestamos Activos</h2>
+<a href="/prestamos/nuevo" class="btn btn-success" style="margin-bottom:16px">Nuevo Prestamo</a>
+{% if prestamos %}
+<table>
+  <thead>
+    <tr><th>#</th><th>Herramienta</th><th>Usuario</th><th>Curso</th>
+        <th>Turno</th><th>Sector</th><th>Fecha Prestamo</th><th>Obs.</th><th>Accion</th></tr>
+  </thead>
+  <tbody>
+    {% for p in prestamos %}
+    <tr>
+      <td>{{ p.id }}</td>
+      <td>{{ p.herramienta }}</td>
+      <td>{{ p.usuario }}</td>
+      <td>{{ p.curso }}</td>
+      <td><span class="badge {% if p.turno=='Manana' %}badge-manana{% else %}badge-tarde{% endif %}">{{ p.turno }}</span></td>
+      <td><span class="badge {% if p.sector=='Taller' %}badge-taller{% else %}badge-aula{% endif %}">{{ p.sector }}</span></td>
+      <td>{{ p.fecha_prestamo }}</td>
+      <td>{{ p.observaciones or "—" }}</td>
+      <td><a href="/prestamos/devolver/{{ p.id }}" class="btn btn-warning"
+             onclick="return confirm('Confirmar devolucion?')">Devolver</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p style="color:#666;margin-top:20px">No hay prestamos activos.</p>
+{% endif %}
+{% endblock %}

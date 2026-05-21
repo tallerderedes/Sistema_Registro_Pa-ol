@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+  <h2>Informe — {{ tipo|capitalize }}{% if turno != 'todos' %} | Turno {{ turno }}{% endif %}</h2>
+  <div class="no-print" style="display:flex;gap:8px;flex-wrap:wrap">
+    <button onclick="window.print()" class="btn btn-primary">Imprimir</button>
+    <a href="/informes/excel?tipo={{ tipo }}&turno={{ turno }}" class="btn btn-success">Exportar Excel</a>
+    <a href="/informes" class="btn btn-secondary">Volver</a>
+  </div>
+</div>
+<p style="color:#666;margin-bottom:16px;font-size:.9rem">
+  Desde: <strong>{{ fecha_desde.strftime('%d/%m/%Y') }}</strong>
+  hasta: <strong>{{ hoy.strftime('%d/%m/%Y %H:%M') }}</strong>
+  — Total: <strong>{{ prestamos|length }}</strong>
+</p>
+{% if prestamos %}
+<table>
+  <thead>
+    <tr><th>#</th><th>Herramienta</th><th>Estado</th><th>Usuario</th><th>Tipo</th>
+        <th>Curso</th><th>Turno</th><th>Sector</th><th>Prestamo</th><th>Devolucion</th><th>Obs.</th></tr>
+  </thead>
+  <tbody>
+    {% for p in prestamos %}
+    <tr>
+      <td>{{ p.id }}</td><td>{{ p.herramienta }}</td>
+      <td><span class="badge {% if p.estado_herramienta=='Bueno' %}badge-bueno{% elif p.estado_herramienta=='Regular' %}badge-regular{% else %}badge-danado{% endif %}">{{ p.estado_herramienta }}</span></td>
+      <td>{{ p.usuario }}</td><td>{{ p.tipo }}</td><td>{{ p.curso }} {{ p.division }}</td>
+      <td><span class="badge {% if p.turno=='Manana' %}badge-manana{% else %}badge-tarde{% endif %}">{{ p.turno }}</span></td>
+      <td><span class="badge {% if p.sector=='Taller' %}badge-taller{% else %}badge-aula{% endif %}">{{ p.sector }}</span></td>
+      <td>{{ p.fecha_prestamo }}</td>
+      <td>{{ p.fecha_devolucion or "Pendiente" }}</td>
+      <td>{{ p.observaciones or "—" }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p style="color:#666">No hay registros para este periodo.</p>
+{% endif %}
+{% endblock %}

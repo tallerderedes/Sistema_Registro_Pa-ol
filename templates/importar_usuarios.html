@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Importar Usuarios desde Excel</h2>
+{% if msg %}
+<div class="alert {% if 'Error' in msg %}alert-danger{% else %}alert-success{% endif %}">{{ msg }}</div>
+{% endif %}
+<div class="form-card">
+  <p style="margin-bottom:16px;color:#555;font-size:.9rem">
+    El archivo Excel debe tener estas columnas en orden:<br><br>
+    <strong>nombre | curso | division | turno | tipo</strong><br><br>
+    Turno: <em>Manana</em> o <em>Tarde</em> &mdash; Tipo: <em>Alumno</em> o <em>Docente</em><br>
+    La primera fila es el encabezado (se omite).
+  </p>
+  <a href="/plantillas/usuarios" class="btn btn-excel" style="margin-bottom:20px;display:inline-block">
+    Descargar plantilla Excel
+  </a>
+  <form method="POST" enctype="multipart/form-data">
+    <label>Seleccionar archivo Excel (.xlsx)</label>
+    <input type="file" name="archivo" accept=".xlsx" required>
+    <div class="form-actions">
+      <button class="btn btn-success" type="submit">Importar</button>
+      <a href="/usuarios" class="btn btn-secondary">Cancelar</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

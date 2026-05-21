@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Paniol CET 22</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,sans-serif;background:#f0f2f5;color:#222}
+header{background:#1a3a5c;color:white;padding:14px 24px}
+header h1{font-size:1.3rem}
+header small{font-size:.85rem;opacity:.8}
+nav{background:#254d7a;display:flex;gap:4px;padding:8px 24px;flex-wrap:wrap}
+nav a{color:#cde;text-decoration:none;padding:6px 14px;border-radius:4px;font-size:.9rem}
+nav a:hover{background:#1a3a5c;color:white}
+main{padding:24px;max-width:1100px;margin:auto}
+h2{margin-bottom:16px;color:#1a3a5c}
+table{width:100%;border-collapse:collapse;background:white;border-radius:8px;overflow:hidden;box-shadow:0 2px 6px #0002}
+th{background:#1a3a5c;color:white;padding:10px 12px;text-align:left}
+td{padding:9px 12px;border-bottom:1px solid #eee}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#f7f9fc}
+.btn{display:inline-block;padding:7px 14px;border-radius:5px;text-decoration:none;font-size:.85rem;cursor:pointer;border:none;font-family:Arial}
+.btn-primary{background:#1a3a5c;color:white}
+.btn-success{background:#27ae60;color:white}
+.btn-warning{background:#e67e22;color:white}
+.btn-danger{background:#c0392b;color:white}
+.btn-info{background:#2980b9;color:white}
+.btn-secondary{background:#7f8c8d;color:white}
+.badge{display:inline-block;padding:3px 8px;border-radius:12px;font-size:.75rem;font-weight:bold}
+.badge-bueno{background:#d4edda;color:#155724}
+.badge-regular{background:#fff3cd;color:#856404}
+.badge-danado{background:#f8d7da;color:#721c24}
+.badge-manana{background:#cce5ff;color:#004085}
+.badge-tarde{background:#ffeeba;color:#856404}
+.badge-taller{background:#d1ecf1;color:#0c5460}
+.badge-aula{background:#e2d9f3;color:#4a235a}
+form label{display:block;margin-top:12px;font-weight:bold;font-size:.9rem}
+form input,form select,form textarea{width:100%;padding:8px 10px;margin-top:4px;border:1px solid #ccc;border-radius:5px;font-size:.95rem}
+.form-card{background:white;padding:24px;border-radius:8px;box-shadow:0 2px 6px #0002;max-width:500px}
+.form-actions{margin-top:20px;display:flex;gap:10px}
+@media print{nav,header,.no-print{display:none!important}main{padding:0}body{background:white}}
+</style>
+</head>
+<body>
+<header>
+  <h1>&#128296; Paniol &mdash; CET N&deg;22</h1>
+  <small>Sistema de Prestamo de Herramientas</small>
+</header>
+<nav>
+  <a href="/">&#127968; Inicio</a>
+  <a href="/herramientas">&#128296; Herramientas</a>
+  <a href="/usuarios">&#128100; Usuarios</a>
+  <a href="/prestamos/nuevo">&#10133; Nuevo Prestamo</a>
+  <a href="/buscar">&#128269; Buscar</a>
+  <a href="/informes">&#128202; Informes</a>
+  <a href="/logout" style="margin-left:auto;background:#c0392b;color:white;padding:6px 14px;border-radius:4px;text-decoration:none;font-size:.9rem">Salir</a>
+</nav>
+<main>
+  {% block content %}{% endblock %}
+</main>
+</body>
+</html>

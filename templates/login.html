@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Login - Paniol CET22</title>
+<style>
+body{font-family:Arial;background:#1a3a5c;display:flex;justify-content:center;align-items:center;height:100vh;margin:0}
+.card{background:white;padding:36px;border-radius:10px;width:320px;box-shadow:0 4px 16px #0004}
+h2{color:#1a3a5c;margin-bottom:20px;text-align:center}
+label{display:block;margin-top:12px;font-weight:bold;font-size:.9rem}
+input{width:100%;padding:9px;margin-top:4px;border:1px solid #ccc;border-radius:5px;font-size:1rem}
+button{width:100%;margin-top:20px;padding:10px;background:#1a3a5c;color:white;border:none;border-radius:5px;font-size:1rem;cursor:pointer}
+button:hover{background:#254d7a}
+.err{color:#c0392b;margin-top:10px;font-size:.9rem;text-align:center}
+.logo{text-align:center;font-size:2.5rem;margin-bottom:8px}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">&#128296;</div>
+  <h2>Paniol CET N&deg;22</h2>
+  <form method="POST">
+    <label>Usuario</label>
+    <input name="user" required autocomplete="username">
+    <label>Contrasena</label>
+    <input name="clave" type="password" required autocomplete="current-password">
+    <button type="submit">Ingresar</button>
+    {% if error %}<p class="err">{{ error }}</p>{% endif %}
+  </form>
+</div>
+</body>
+</html>

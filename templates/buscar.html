@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Buscar Prestamos</h2>
+<form method="GET" style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px">
+  <input name="q" value="{{ q }}" placeholder="Nombre o herramienta..."
+         style="flex:1;min-width:200px;padding:8px;border:1px solid #ccc;border-radius:5px">
+  <select name="turno" style="padding:8px;border:1px solid #ccc;border-radius:5px">
+    <option value="todos" {% if turno=='todos' %}selected{% endif %}>Todos los turnos</option>
+    <option value="Manana" {% if turno=='Manana' %}selected{% endif %}>Manana</option>
+    <option value="Tarde"  {% if turno=='Tarde'  %}selected{% endif %}>Tarde</option>
+  </select>
+  <select name="sector" style="padding:8px;border:1px solid #ccc;border-radius:5px">
+    <option value="todos"  {% if sector=='todos'  %}selected{% endif %}>Todos los sectores</option>
+    <option value="Taller" {% if sector=='Taller' %}selected{% endif %}>Taller</option>
+    <option value="Aula"   {% if sector=='Aula'   %}selected{% endif %}>Aula</option>
+  </select>
+  <button class="btn btn-primary" type="submit">Buscar</button>
+</form>
+{% if resultados %}
+<p style="margin-bottom:12px;color:#666">{{ resultados|length }} resultado(s)</p>
+<table>
+  <thead>
+    <tr><th>#</th><th>Herramienta</th><th>Usuario</th><th>Curso</th>
+        <th>Turno</th><th>Sector</th><th>Prestamo</th><th>Devolucion</th><th>Obs.</th></tr>
+  </thead>
+  <tbody>
+    {% for p in resultados %}
+    <tr>
+      <td>{{ p.id }}</td><td>{{ p.herramienta }}</td><td>{{ p.usuario }}</td>
+      <td>{{ p.curso }} {{ p.division }}</td>
+      <td><span class="badge {% if p.turno=='Manana' %}badge-manana{% else %}badge-tarde{% endif %}">{{ p.turno }}</span></td>
+      <td><span class="badge {% if p.sector=='Taller' %}badge-taller{% else %}badge-aula{% endif %}">{{ p.sector }}</span></td>
+      <td>{{ p.fecha_prestamo }}</td>
+      <td>{{ p.fecha_devolucion or "Pendiente" }}</td>
+      <td>{{ p.observaciones or "—" }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% elif q %}
+<p style="color:#666">No se encontraron resultados para "{{ q }}".</p>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Nuevo Prestamo</h2>
+<div class="form-card">
+  <form method="POST">
+    <label>Herramienta *</label>
+    <select name="herramienta_id" required>
+      <option value="">-- Seleccionar --</option>
+      {% for h in herramientas %}
+      <option value="{{ h.id }}">{{ h.nombre }} ({{ h.cantidad }} disp.) &mdash; {{ h.estado }}</option>
+      {% endfor %}
+    </select>
+
+    <label>Usuario *</label>
+    <select name="usuario_id" required>
+      <option value="">-- Seleccionar --</option>
+      {% for u in usuarios %}
+      <option value="{{ u.id }}">{{ u.nombre }} &mdash; {{ u.tipo }} ({{ u.turno }})</option>
+      {% endfor %}
+    </select>
+
+    <label>Sector *</label>
+    <select name="sector" id="sector" required onchange="mostrarDestino()">
+      <option value="">-- Seleccionar --</option>
+      <option value="Taller">Taller</option>
+      <option value="Aula">Aula</option>
+    </select>
+
+    <div id="div_taller" style="display:none;margin-top:12px">
+      <label>Taller *</label>
+      <select name="destino_taller" id="destino_taller">
+        <option value="">-- Seleccionar taller --</option>
+        {% for t in talleres %}
+        <option value="{{ t }}">{{ t }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div id="div_curso" style="display:none;margin-top:12px">
+      <label>Curso *</label>
+      <select name="destino_curso" id="destino_curso">
+        <option value="">-- Seleccionar curso --</option>
+        {% for c in cursos %}
+        <option value="{{ c }}">{{ c }}</option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <label>Observaciones</label>
+    <textarea name="observaciones" rows="3" placeholder="Opcional..."></textarea>
+
+    <div class="form-actions">
+      <button class="btn btn-success" type="submit">Registrar Prestamo</button>
+      <a href="/" class="btn btn-secondary">Cancelar</a>
+    </div>
+  </form>
+</div>
+<script>
+function mostrarDestino() {
+  var s = document.getElementById("sector").value;
+  document.getElementById("div_taller").style.display = s === "Taller" ? "block" : "none";
+  document.getElementById("div_curso").style.display  = s === "Aula"   ? "block" : "none";
+  document.getElementById("destino_taller").required  = s === "Taller";
+  document.getElementById("destino_curso").required   = s === "Aula";
+}
+</script>
+{% endblock %}

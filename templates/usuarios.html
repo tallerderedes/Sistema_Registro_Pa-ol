@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Usuarios</h2>
+<div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+  <a href="/usuarios/nuevo" class="btn btn-success">Nuevo Usuario</a>
+  <a href="/usuarios/importar" class="btn btn-excel">Importar desde Excel</a>
+</div>
+<table>
+  <thead>
+    <tr><th>#</th><th>Nombre</th><th>Tipo</th><th>Curso</th><th>Turno</th><th>Acciones</th></tr>
+  </thead>
+  <tbody>
+    {% for u in usuarios %}
+    <tr>
+      <td>{{ u.id }}</td><td>{{ u.nombre }}</td><td>{{ u.tipo }}</td>
+      <td>{{ u.curso }} {{ u.division }}</td>
+      <td><span class="badge {% if u.turno=='Manana' %}badge-manana{% else %}badge-tarde{% endif %}">{{ u.turno }}</span></td>
+      <td>
+        <a href="/usuarios/editar/{{ u.id }}" class="btn btn-info">Editar</a>
+        <a href="/usuarios/eliminar/{{ u.id }}" class="btn btn-danger" onclick="return confirm('Eliminar?')">Borrar</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Herramientas</h2>
+<div style="display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap">
+  <a href="/herramientas/nueva" class="btn btn-success">Nueva Herramienta</a>
+  <a href="/herramientas/importar" class="btn btn-excel">Importar desde Excel</a>
+</div>
+<table>
+  <thead>
+    <tr><th>#</th><th>Nombre</th><th>Descripcion</th><th>Cantidad</th><th>Estado</th><th>Acciones</th></tr>
+  </thead>
+  <tbody>
+    {% for h in herramientas %}
+    <tr>
+      <td>{{ h.id }}</td><td>{{ h.nombre }}</td>
+      <td>{{ h.descripcion or "—" }}</td><td>{{ h.cantidad }}</td>
+      <td><span class="badge {% if h.estado=='Bueno' %}badge-bueno{% elif h.estado=='Regular' %}badge-regular{% else %}badge-danado{% endif %}">{{ h.estado }}</span></td>
+      <td>
+        <a href="/herramientas/editar/{{ h.id }}" class="btn btn-info">Editar</a>
+        <a href="/herramientas/eliminar/{{ h.id }}" class="btn btn-danger" onclick="return confirm('Eliminar?')">Borrar</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}
